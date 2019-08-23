@@ -26,3 +26,6 @@ We will use XMPP protocol, one of the main objectives is to understand the bases
  
  - You should Download and install  [GitHub (64bit)](https://desktop.github.com/)
  - You should also Download and install JDK8
+ - Once you download the entire project, get the *dist* folder and make a copy of this folder in disk 
+ - Rename this folder and save it as *XMPP*
+ - Run the XMPP.bat
