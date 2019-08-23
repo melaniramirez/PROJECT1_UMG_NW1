@@ -14,7 +14,7 @@ public class XMPP {
     public static XMPPConnection gConnection = null;
             
     public static void main(String[] args) throws XMPPException {
-        /*
+        
         Connection.ConfigurarConexion();
         int lOpcion = 0;
        
@@ -23,7 +23,7 @@ public class XMPP {
             lOpcion = Menu.MostrarMenu();
             Menu.SelectOption(lOpcion);
         }
-        */
+        
         Generals.Pause("<******************** Thanks for using the application ********************>");
     }
 }
