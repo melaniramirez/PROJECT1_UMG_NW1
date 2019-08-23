@@ -60,6 +60,22 @@ public class Menu {
             case 4:
                 Administration.DeleteAccount();
                 break;
+            //Comunicacion
+            case 5:
+                Communication.AddContact();
+                break;
+            case 6:
+                Communication.CreateGroup();
+                break;
+            case 7:
+                Communication.AddContactToGroup();
+                break;
+            case 8:
+                Communication.ShowContacts();
+                break;
+            case 9:
+                Communication.ShowContactInfo();
+                break;
             
         }
     }
