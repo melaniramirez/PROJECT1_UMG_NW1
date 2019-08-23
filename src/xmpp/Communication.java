@@ -278,5 +278,17 @@ public class Communication {
          
     }
     
-    
+    public static void SendFile(XMPPConnection pConnection)
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("\nEnter the contact: ");
+        String lUsuario = scan.nextLine() + "alumchat.xyz";
+        System.out.println("Enter the complete filename: ");
+        String lArchivo = "C:\\Users\\miche\\OneDrive\\Escritorio\\redes.txt";
+        System.out.println("Enter the description: ");
+        String lDescripcion = scan.nextLine();
+        
+        FileTransfer.SendFile(lUsuario, lArchivo, lDescripcion);
+        Generals.Pause("File sent successfully.");
+    }
 }
