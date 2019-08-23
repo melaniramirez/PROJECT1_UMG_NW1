@@ -94,8 +94,61 @@ public class Communication {
         }
     }
     
+    public static void DefinePresenceMessage()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("\nEnter the message of presence: ");
+        String lMensajePresencia = scan.nextLine();
+        
+        Presence lPresence = new Presence(Presence.Type.available);
+        lPresence.setStatus(lMensajePresencia);
+        XMPP.gConnection.sendPacket(lPresence);
+        
+        Generals.Pause("Message defined successfully.");
+    }
     
-    
+    public static void SendMessageToContact()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("\nEnter the contact: ");
+        String lContacto = scan.nextLine() + "@alumchat.xyz";
+        
+        try{
+            createEntry(XMPP.gConnection,lContacto,lContacto,null);
+            String lMensaje = "";
+            ChatManager chatManager = XMPP.gConnection.getChatManager();
+            Chat chat = chatManager.createChat(lContacto, new MessageListener() {
+            @Override
+                public void processMessage(Chat chat, Message msg) {
+                    String from = msg.getFrom();
+                    String body = msg.getBody();
+                    if (body != null)
+                    {
+                        System.out.println(from + "typing...");
+                        System.out.println(from + "'s message: " + body);
+                        if (body.equalsIgnoreCase("bye")){
+                            Generals.Pause("Conversation completed successfully.");
+                            return;
+                        }
+                    }
+                }
+            });
+
+            while(lMensaje.equalsIgnoreCase("bye") == false){
+                System.out.print("Enter the message: ");
+                lMensaje = scan.nextLine();
+                System.out.println("Your message: " + lMensaje);
+                chat.sendMessage(lMensaje);
+            }
+                    
+            Generals.Pause("Conversation completed successfully.");
+
+            }catch(XMPPException e){
+                Generals.Pause("Error: " + e.getMessage());
+            }catch(Exception e){
+                Generals.Pause("Error: " + e.getMessage());
+        }
+    }
     
     public static void createEntry(XMPPConnection pConnection, String pUser, String pName, String pGrupo) throws Exception {
         System.out.println(String.format("Creating entry for buddy '%1$s' with name %2$s", pUser, pName));
@@ -144,9 +197,70 @@ public class Communication {
         }
     }
     
+    public static void CreateGroupChat()
+    {
+        try
+        {
+            Scanner scan = new Scanner(System.in);
+            System.out.print("\nEnter the groupname: ");
+            String lGroupName = scan.nextLine();
+
+            MultiUserChat muc = new MultiUserChat(XMPP.gConnection, lGroupName + "@conference.alumchat.xyz");
+            muc.create(lGroupName);
+            Form form = muc.getConfigurationForm();
+            Form submitForm = form.createAnswerForm();
+            for (Iterator<FormField> fields = form.getFields(); fields.hasNext();) {
+                    FormField field = (FormField) fields.next();
+                    if (!FormField.TYPE_HIDDEN.equals(field.getType()) && field.getVariable() != null) {
+                    submitForm.setDefaultAnswer(field.getVariable());
+                }
+            }
+            
+            // Set owners and configurations of the room
+            List<String> owners = new ArrayList<String>();
+            owners.add(XMPP.gConnection.getUser());
+            submitForm.setAnswer("muc#roomconfig_roomowners", owners);
+            submitForm.setAnswer("muc#roomconfig_persistentroom", true);
+            submitForm.setAnswer("muc#roomconfig_roomdesc", lGroupName);
+            muc.sendConfigurationForm(submitForm);
+            
+        }catch(Exception e)
+        {
+            Generals.Pause("Error: " + e.getMessage());
+        }
+    }
     
-    
-    
+    public static void SendMessageToGroup()
+    {
+         Scanner scan = new Scanner(System.in);
+         System.out.print("\nEnter the groupname: ");
+         String lGroupName = scan.nextLine() + "@conference.alumchat.xyz";
+         System.out.print("\nEnter the message: ");
+         String lMessage = scan.nextLine();
+         
+        try {
+            MultiUserChat muc = new MultiUserChat(XMPP.gConnection,lGroupName);
+            if (muc != null)
+            {
+                muc.join(XMPP.gConnection.getUser().replace("@alumchat.xyz/Smack",""));
+                muc.sendMessage(lMessage);
+                muc.addMessageListener(new TaxiMultiListener());
+                
+                while(lMessage.equalsIgnoreCase("bye") == false)
+                {
+                    System.out.println("Ingrese el mensaje");
+                    lMessage= scan.nextLine();
+                    muc.sendMessage(lMessage);
+                }
+                
+                muc.leave();
+                
+                Generals.Pause("Groupchat ended successfully.");
+            } 
+        } catch (XMPPException e) {
+            Generals.Pause("Error: " + e.getMessage());
+        }
+    }
     
     public static class TaxiMultiListener implements PacketListener {
     @Override
@@ -158,7 +272,11 @@ public class Communication {
                 System.out.println(String.format("Receiving message from: '%1$s' from %2$s", body, from));
         }
     }
+    public static void VerNotificaciones()
+    {
+        Roster roster = XMPP.gConnection.getRoster();
+         
+    }
     
     
-   
 }
