@@ -45,6 +45,22 @@ public class Menu {
     
     public static void SelectOption(int pOption) throws XMPPException
     {
-     
+        switch(pOption)
+        {
+            //Administracion
+            case 1:
+                Administration.CreateAccount();
+                break;
+            case 2:
+                Administration.LogIn();
+                break;
+            case 3:
+                Administration.LogOut();
+                break;
+            case 4:
+                Administration.DeleteAccount();
+                break;
+            
+        }
     }
 }
