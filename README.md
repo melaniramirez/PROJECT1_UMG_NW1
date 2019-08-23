@@ -25,7 +25,6 @@ We will use XMPP protocol, one of the main objectives is to understand the bases
  ## Installation Instructions
  
  - Download and install [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - Download [Netbeans](https://netbeans.org/downloads/8.0.2/)
  - Once you download the entire project, import the project into netbeans and compile the project. 
  - Get the *dist* folder from the project and make a copy of this folder in C 
  - Rename this folder and save it as *XMPP*
