@@ -76,7 +76,26 @@ public class Menu {
             case 9:
                 Communication.ShowContactInfo();
                 break;
-            
+            case 10:
+                Communication.DefinePresenceMessage();
+                break;
+            case 11:
+                Communication.SendMessageToContact();
+                break;
+            case 12:
+                Communication.CreateGroupChat();
+                break;
+            case 13:
+                Communication.SendMessageToGroup();
+                break;
+            case 14:
+                break;
+            case 15: 
+                Communication.SendFile(XMPP.gConnection);
+                break;
+            case 16:
+                FileTransfer.ReceiveFile(XMPP.gConnection);
+                break;
         }
     }
 }
