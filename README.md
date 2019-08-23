@@ -24,8 +24,13 @@ We will use XMPP protocol, one of the main objectives is to understand the bases
   
  ## Installation Instructions
  
- - You should Download and install  [GitHub (64bit)](https://desktop.github.com/)
- - You should also Download and install JDK8
- - Once you download the entire project, get the *dist* folder and make a copy of this folder in disk 
+ - Download and install  [GitHub](https://desktop.github.com/)
+ - Download and install [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+ - Download [Netbeans](https://netbeans.org/downloads/8.0.2/)
+ - Create a folder named *Smack* in Documents
+ - Download Smack and save it *Smack* folder [Smack.jar](http://www.java2s.com/Code/Jar/s/Downloadsmackjar.htm)
+ - Download Smack and save it *Smack* folder [Smackx.jar](http://www.java2s.com/Code/Jar/s/Downloadsmackx321jar.htm)
+ - Once you download the entire project, import the project into netbeans and compile the project. 
+ - Get the *dist* folder from the project and make a copy of this folder in C 
  - Rename this folder and save it as *XMPP*
  - Run the XMPP.bat
